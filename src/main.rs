@@ -29,12 +29,12 @@ fn main() {
 
         let hash = HEXUPPER.encode(digest.as_ref());
 
-        println!("SHA-256 digest of {} is {}", f_path, hash);
+        //println!("SHA-256 digest of {} is {}", f_path, hash);
 
         if hash_map.contains_key(&hash) {
             let original_filepath = hash_map
                 .get(&hash)
-                .expect("Error 4857");
+                .expect("Error");
             duplicate_filepaths
                 .insert(f_path, original_filepath.to_string());
         } else {
