@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 use std::io::{BufReader, Read};
 use std::fs::File;
-use std::error::Error;
 
 use walkdir::WalkDir;
 
@@ -9,14 +8,17 @@ use data_encoding::HEXUPPER;
 
 use ring::digest::{Context, Digest, SHA256};
 
+
 fn main() {
     let mut hash_map = HashMap::<String, String>::new();
     // This HashMap is used to store file hashes and the filepaths
     // of the first instance of the hash.
 
     let mut duplicate_filepaths = HashMap::<String, String>::new();
+    // This HashMap stores each duplicated file filepath as the key, 
+    // with the original filepath as the value.
     
-    for entry in WalkDir::new(".")
+    for entry in WalkDir::new(".") // Use the CWD of the process
         .into_iter()
         .map(|e| e.expect("Error"))
         .filter(|e| !e.file_type().is_dir()) {
